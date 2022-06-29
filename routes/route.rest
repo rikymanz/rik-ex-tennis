@@ -1,0 +1,33 @@
+GET http://localhost:3000/wallets/
+
+###
+
+GET http://localhost:3000/wallets/4
+
+###
+
+DELETE http://localhost:3000/wallets/5
+
+###
+
+POST http://localhost:3000/wallets/
+Content-Type: application/json
+
+{
+  "owner": "z",
+  "coin": "BTC",
+  "quantity": 0.11,
+  "color": "#FFAAAA"
+}
+
+###
+
+PATCH http://localhost:3000/wallets/10
+Content-Type: application/json 
+
+{
+  "owner": "A",
+  "coin": "MCO",
+  "quantity": 0.11,
+  "color": "#FFFFFF"
+}
