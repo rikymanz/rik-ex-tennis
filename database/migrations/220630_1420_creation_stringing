@@ -1,0 +1,8 @@
+CREATE TABLE stringing(
+    id int not null primary key auto_increment,
+    raquet int not null,
+    date datetime not null,
+    `string` varchar(100) not null,
+    weight float not null,
+    place varchar(100)
+)

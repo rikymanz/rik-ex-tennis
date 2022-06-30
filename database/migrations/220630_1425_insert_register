@@ -1,0 +1,34 @@
+INSERT INTO register(raquet,date,`desc`,hours,result,cost) VALUES
+(1,'2022-06-02 12:00','Torneo Pineta - Primo turno - 60 62',1,1,30),
+(2,'2022-06-02 19:00','Torneo Pineta - Secondo turno - 75 64',1.5,1,0),
+(1,'2022-06-03 18:00','Torneo Pineta - Terzo turno - 64 64',2,1,0),
+
+(2,'2022-06-04 12:00','Torneo Garda - Primo turno - 53 41',1,1,25),
+(1,'2022-06-04 15:00','Torneo Garda - Secondo turno - 04 14 62',1,2,0),
+(2,'2022-06-04 19:00','Torneo Pineta - Terzo turno - 57 26',1.5,2,0),
+
+(2,'2022-06-07 19:00','Lezione gruppo',2,0,15),
+(1,'2022-06-07 21:00','Partita Righe',1,1,0),
+
+(2,'2022-06-08 19:00','Lezione Elia',1,2,30),
+(1,'2022-06-14 19:00','Lezione Gruppo',2,0,15),
+(2,'2022-06-14 20:00','Lezione Gruppo Gala',2,0,0),
+
+(1,'2022-06-15 19:00','Partita Griso',1,2,10),
+(1,'2022-06-16 19:00','Lezione Elia',1,2,30),
+(1,'2022-06-17 19:00','Partita Gala',1,1,0),
+
+(2,'2022-06-19 10:00','Coppa Italia - 63 16 26',2,2,0),
+(1,'2022-06-21 19:00','Lezione gruppo',2,0,15),
+(2,'2022-06-22 19:00','Lezione Elia',1,2,50),
+
+(1,'2022-06-27 19:00','Partita Righe',1,2,0),
+
+(2,'2022-06-28 19:00','Lezione gruppo',2,0,15),
+
+(1,'2022-06-29 19:00','Partita Griso',1.5,1,0),
+(2,'2022-06-29 20:00','Partita Gala',1,2,0),
+(1,'2022-06-30 19:00','Partita Mirco',1,0,0)
+
+
+

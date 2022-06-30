@@ -1,11 +1,15 @@
-const mssql = require('mssql');
+const mysql = require("mysql");
+require('dotenv').config();
 
-const pool = new mssql.ConnectionPool({
-    "server": 'rik-sql-01.database.windows.net',
-    "user": 'rik-admin',
-    "password": 'Pd72ù44!mfo$dj',
-    "database": 'rik-db-01 ',
-    "port": 1433
+
+var connection  = mysql.createPool({
+  connectionLimit : 10,
+  host     : process.env.DB_HOST,
+  user     : process.env.DB_USER,
+  password : process.env.DB_PASS,
+  database : process.env.DB_SCHEMA,
 });
 
-module.exports  = pool;
+
+
+module.exports = connection;

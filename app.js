@@ -1,19 +1,29 @@
 const express = require('express')
-//var cors = require('cors')
+const cors = require('cors')
 const app = express()
-const port = process.env.PORT || 3000
-var cors = require('cors')
 
-app.use(cors()) 
 app.use(express.json())
-//app.use(cors())
+app.use(cors())
 
-const walletsRouter = require('./routes/walletsRoutes')
-app.use('/wallets', walletsRouter)
+const usersRouter = require('./routes/users')
+const timeReportRouter = require('./routes/timeReport')
+const productionOrdersRouter = require('./routes/p40ProductionOrders')
+const lopRouter = require('./routes/lop')
+const processesRouter = require('./routes/processes')
+const XMLRouter = require('./routes/p51Xml')
+const visitsRouter = require('./routes/p54Visits')
 
-app.get('/',( req , res )=>{
-    res.send('RIK-EX-COIN!!!')
+app.use('/users', usersRouter)
+app.use('/lop', lopRouter)
+app.use('/processes', processesRouter)
+app.use('/time-report', timeReportRouter)
+app.use('/production-orders', productionOrdersRouter)
+app.use('/xml', XMLRouter)
+app.use('/visits', visitsRouter)
+
+// risposta del server http://localhost:3002
+app.listen( 3002, () => console.log('server started on 3002'))
+
+app.use('/', (req,res) => {
+  res.send('HOME API')
 })
-
-// risposta del server http://localhost:3000
-app.listen( port, () => console.log(`Listening on port ${port}!`))

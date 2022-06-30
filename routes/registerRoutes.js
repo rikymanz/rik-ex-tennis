@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const Controller = require('../controllers/walletsController');
+const Controller = require('../controllers/registerController')
+
 
 // Get all wallets
 router.get( '/',Controller.getAll )
@@ -16,5 +17,6 @@ router.delete( '/:id', Controller.delete )
 
 // update
 router.patch('/:id', Controller.update ) 
+
 
 module.exports = router

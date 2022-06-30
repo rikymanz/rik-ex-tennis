@@ -1,91 +1,93 @@
 const sql = require("../database/db.js");
 
+// constructor
 const Model = {
-  getAll : async() => {
-    const connection = await sql.connect();
-    var stringRequest = "SELECT * FROM wallets";
-    var result = [{}];
+    // estrazione di tutte le righe di register
+    getAll : result => {
+        // query da eseguire
+        const strQuery = "SELECT * FROM register"
+        sql.query( strQuery , (err, res) => {
+            if (err) {
+                console.log("error: ", err)
+                result(null, err)
+                return
+            }
+            result(null, res)
+        })
+    }, // fine funzione get all
 
-    try {
-      result = await connection.request().query(stringRequest);
-    } catch (err) {
-      console.error(err)
-      connection.close();
-      return false
-    }
+    getById : ( id, result ) => {
+        const strQuery = `SELECT * FROM register WHERE id = ${id}`
+        sql.query( strQuery , (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+                return;
+            }
 
-    return result.recordset.length > 0 ? result.recordset : null;
-  },
+            if ( res.length ) {
+                result(null, res[0])
+                return
+            }
 
-  getById: async function(id) {
-    const connection = await sql.connect();
-    var stringRequest = `SELECT * FROM wallets WHERE wallet_id = ${id}`;
-    var result = [{}];
+            // not found
+            result({ kind: "not_found" }, null);
+        })
+    },
 
-    try {
-      result = await connection.request()
-        .query(stringRequest);
-    } catch (err) {
-      console.error(err)
-      connection.close();
-      return false
-    }
-    return result.recordset.length > 0 ? result.recordset : null;
-  },
 
-  post: async function( newWallet ) {
-    const connection = await sql.connect();
-    console.log('ok')
-    var stringRequest = `insert into wallets( owner , coin , quantity , color ) values ( '${newWallet.owner}' , '${newWallet.coin}' , ${newWallet.quantity} , '${newWallet.color}' )`;
-    try {
-      await connection.request().query(stringRequest);
-    } catch (err) {
-      console.error(err)
-      connection.close();
-      return false
-    }
-    return true
-  }, // fine post
+    update : (id, data, result) => {
+        const strQuery = `UPDATE users SET ? WHERE id = ?`
+        sql.query(strQuery, [data, id] , (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                result(null, err);
+                return;
+            }
 
-  delete: async function(id) {
-    const connection = await sql.connect();
-    var stringRequest = `DELETE FROM wallets WHERE wallet_id = ${id}`;
-    var result = [{}];
+            if (res.affectedRows == 0) {
+                // not found Customer with the id
+                result({ kind: "not_found" }, null);
+                return;
+            }
+            console.log("updated customer: ", { id: id, ...data });
+            result(null, { id: id, ...data });
+          }
+        )
+    },
 
-    try {
-      result = await connection.request().query(stringRequest);
-    } catch (err) {
-      console.error(err)
-      connection.close();
-      return false
-    }
-    return true;
-  },
+    // Aggiunta utente a tabella di smart working
+   
+    post : ( data , result ) => {
+        const strQuery = `
+            INSERT INTO register(raquet,date,desc,hours,result,cost) VALUES
+            ( ${data.raquet} , ${data.date} , ${data.desc} , ${data.hours} , ${data.result} , ${data.cost} ),
+            `
 
-  update: async function( wallet , wallet_id ) {
-    const connection = await sql.connect();
-    // per ongi attibuto non undeinfed da modificare
-    for (const [key, value] of Object.entries(wallet)) {
-      if( value != undefined ){
-        try {
-          let stringRequest = `UPDATE wallets SET ${key} = '${value}' WHERE wallet_id = ${wallet_id}`
-          await connection.request().query(stringRequest);
-        } catch (err) {
-          console.error(err)
-          connection.close();
-          return false
-        } // fine try - catch
-      } // fine if
-    } // fine for
-    let stringRequest = `SELECT * FROM wallets WHERE wallet_id = ${wallet_id}`
-    let res = await connection.request().query(stringRequest);
+        sql.query( strQuery , (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+                return;
+            }
+                
+        });
+    },
 
-    if( res.recordset.length > 0 )
-      return true
-    else
-      return false
-  }, // fine post
 
-}
+        // eliminazione utente
+      delete : ( data , result ) => {
+        const strQuery = `DELETE FROM register WHERE id = ${data.id}`
+        sql.query( strQuery , (err, res) => {
+          if (err) {
+            console.log("error: ", err);
+            result(err, null);
+            return;
+          }
+            result(null, res);
+        });
+      },
+
+  };
 
   module.exports = Model;

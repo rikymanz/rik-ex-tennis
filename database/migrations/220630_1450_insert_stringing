@@ -1,0 +1,6 @@
+insert into stringing(raquet,date,string,weight,place)
+VALUES
+('1','2022-04-08 10:00','PolyTour Rev 1.25mm',24,'AffiTennis'),
+('2','2022-04-08 10:00','PolyTour Rev 1.25mm',24,'AffiTennis'),
+('1','2022-06-01 10:00','PolyTour Rev 1.25mm',24,'AffiTennis'),
+('2','2022-06-01 10:00','PolyTour Rev 1.25mm',24,'AffiTennis')
