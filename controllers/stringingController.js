@@ -1,5 +1,5 @@
 
-const model = require('../models/registerModel')
+const model = require('../models/stringingModel')
 
 const Controller = {
 
@@ -22,11 +22,11 @@ const Controller = {
         const entry = {
             raquet: request.body.raquet,
             date: request.body.date,
-            desc: request.body.desc,
-            hours: request.body.hours,
-            result: request.body.result,
-            cost: request.body.cost,
-        };
+            string: request.body.string,
+            weight: request.body.weight,
+            place: request.body.place,
+            
+        }
 
         // Save entry in the database
         const res = await model.post( entry )
@@ -53,10 +53,9 @@ const Controller = {
         const entry = {
             raquet: request.body.raquet,
             date: request.body.date,
-            desc: request.body.desc,
-            hours: request.body.hours,
-            result: request.body.result,
-            cost: request.body.cost,
+            string: request.body.string,
+            weight: request.body.weight,
+            place: request.body.place, 
         }
 
         const id = request.params.id 
