@@ -1,9 +1,10 @@
+-- SQLite
 CREATE TABLE register(
-    id int not null primary key auto_increment,
-    raquet int not null,
-    date datetime not null,
-    `desc` varchar(100) not null,
-    hours float not null,
-    result int,
-    cost float
+    id integer not null primary key autoincrement,
+    raquet integer not null,
+    date datetime not null ,
+    `desc` varchar(100) ,
+    hours float default 1,
+    result integer default 0,
+    cost float default 0
 )

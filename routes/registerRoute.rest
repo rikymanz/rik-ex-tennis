@@ -2,11 +2,11 @@ GET http://localhost:3001/register/
 
 ###
 
-GET http://localhost:3001/register/23
+GET http://localhost:3001/register/29
 
 ###
 
-DELETE http://localhost:3001/register/27
+DELETE http://localhost:3001/register/1
 
 ###
 
@@ -14,9 +14,9 @@ POST http://localhost:3001/register/
 Content-Type: application/json
 
 {
-  "raquet":2,
-  "date": "2022-07-03 15:00",
-  "desc": "To - Secondo turno - 75 36 T10",
+  "raquet":3,
+  "date": "2022-08-03 15:00",
+  "desc": "aaaaa",
   "hours": 2,
   "result": 1,
   "cost": 0
@@ -25,13 +25,13 @@ Content-Type: application/json
 
 ###
 
-PATCH http://localhost:3001/register/27
+PATCH http://localhost:3001/register/5
 Content-Type: application/json 
 
 {
   "raquet":2,
   "date": "2022-07-01 09:00",
-  "desc": "Partita Righe",
+  "desc": "svv",
   "hours": 1.5,
   "result": 1,
   "cost": 0

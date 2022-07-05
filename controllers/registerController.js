@@ -1,56 +1,78 @@
 
-const model = require('../models/registerModel')
+//const model = require('../models/registerModel')
+const db = require("./../database/database.js")
 
 const Controller = {
 
-    getAll: async( request, reply ) => {
-        const data = await model.getAll()
-        return reply.status(200).send(data)
+    getAll: (req, res, next) => {
+        var sql = "SELECT * FROM register ORDER BY date ASC"
+        var params = []
+        db.all( sql , params , (err, rows) => {
+            if (err) {
+              res.status(400).json({"error":err.message});
+              return;
+            }
+            res.json({
+                rows
+            })
+        });
     },
 
-    getOne: async( request, reply ) => {
-        const data = await model.getById( request.params.id );
-        if ( data != null && data.length > 0 ) {
-            return reply.status(200).send(data[0]);
-        } else {
-            return reply.status(500).send({ error: "Data not found"});
-        }
+    getOne: (req, res, next) => {
+        var sql = "SELECT * FROM register WHERE id = ?"
+        var params = [req.params.id]
+        db.get(sql, params, (err, row) => {
+            if (err) {
+              res.status(400).json({"error":err.message});
+              return;
+            }
+            res.json({
+                row
+            })
+          });
     },
-
-    post: async( request , reply ) => {
-        // Create a reguster row
-        const entry = {
+    post: (request, res, next) => {
+       
+        var data = {
             raquet: request.body.raquet,
             date: request.body.date,
             desc: request.body.desc,
             hours: request.body.hours,
             result: request.body.result,
             cost: request.body.cost,
-        };
-
-        // Save entry in the database
-        const res = await model.post( entry )
-
-        if ( res ) {
-            return reply.status(200).send(true);
-        } else {
-            return reply.status(500).send({ error: "Error"});
         }
+        var sql = 'INSERT INTO register ( raquet,date,desc,hours,result,cost) \
+                   VALUES ( ? , ? , ? , ? , ? , ?) '
+        var params = Object.values( data )
+        db.run( sql , params, function (err, result) {
+            if (err){
+                res.status(400).json({"error": err.message})
+                return;
+            }
+            res.json({
+                "message": "success",
+                "data": data,
+                "id" : this.lastID
+            })
+        });
+    },
 
-    }, // fine moetodo post
 
-    delete: async( request , reply ) => {
-        const res = await model.delete( request.params.id );
-        if ( res ) {
-            return reply.status(200).send(true);
-        } else {
-            return reply.status(500).send({ error: "Data not found"});
-        }
+    delete: (req, res, next) => {
+        db.run(
+            'DELETE FROM register WHERE id = ?',
+            req.params.id,
+            function (err, result) {
+                if (err){
+                    res.status(400).json({"error": res.message})
+                    return;
+                }
+                res.json({"message":"deleted", changes: this.changes})
+        });
     },  // fine delete
 
-    update: async( request , reply ) => {
-
-        const entry = {
+    update: (request, res, next) => {
+        var data = {
             raquet: request.body.raquet,
             date: request.body.date,
             desc: request.body.desc,
@@ -58,20 +80,32 @@ const Controller = {
             result: request.body.result,
             cost: request.body.cost,
         }
+        var params = Object.values( data )
 
-        const id = request.params.id 
+        db.run(
+            `UPDATE register SET
+               raquet = ?, 
+               date = ?, 
+               desc = ?,
+               hours = ?,
+               result = ?,
+               cost = ?
+            WHERE id = ?`,
+            [ ...params , request.params.id ],
+            function ( err ,  result) {
+                if (err){
+                    res.status(400).json({"error": res.message})
+                    console.log( err )
+                    return;
+                }
+                res.json({
+                    message: "success",
+                    data: data,
+                    changes: this.changes
+                })
+        });
+    },
 
-        console.log( id )
-        console.log( entry )
-
-        const res = await model.update( entry , id );
-
-        if ( res ) {
-            return reply.status(200).send(true);
-        } else {
-            return reply.status(500).send({ error: "Error"});
-        }
-    },  // fine update
 
 } // fine classe con metodi
 

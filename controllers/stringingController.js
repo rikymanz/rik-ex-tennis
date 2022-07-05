@@ -1,4 +1,4 @@
-
+// COPIARE registerController, adattare a  stringing
 const model = require('../models/stringingModel')
 
 const Controller = {
