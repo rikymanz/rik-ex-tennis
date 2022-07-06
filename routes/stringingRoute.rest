@@ -2,7 +2,7 @@ GET http://localhost:3001/stringing/
 
 ###
 
-GET http://localhost:3001/stringing/5
+GET http://localhost:3001/stringing/7
 
 ###
 
@@ -16,7 +16,7 @@ Content-Type: application/json
 {
   "raquet":2,
   "date": "2022-07-03 15:00",
-  "string": "Test",
+  "strings": "Test",
   "weight": 22,
   "place": "ciccio"
 }
@@ -24,13 +24,13 @@ Content-Type: application/json
 
 ###
 
-PATCH http://localhost:3001/stringing/5
+PATCH http://localhost:3001/stringing/7
 Content-Type: application/json 
 
 {
   "raquet":1,
   "date": "2022-08-03 15:00",
-  "string": "Test0pppppp",
+  "strings": "Test0pppppp",
   "weight": 23,
   "place": "cicsdqfefcio"
 }

@@ -2,11 +2,11 @@ GET http://localhost:3001/register/
 
 ###
 
-GET http://localhost:3001/register/29
+GET http://localhost:3001/register/21
 
 ###
 
-DELETE http://localhost:3001/register/1
+DELETE http://localhost:3001/register/21
 
 ###
 
@@ -25,7 +25,7 @@ Content-Type: application/json
 
 ###
 
-PATCH http://localhost:3001/register/5
+PATCH http://localhost:3001/register/21
 Content-Type: application/json 
 
 {

@@ -1,75 +1,111 @@
 // COPIARE registerController, adattare a  stringing
-const model = require('../models/stringingModel')
+const db = require("./../database/database.js")
 
 const Controller = {
 
-    getAll: async( request, reply ) => {
-        const data = await model.getAll()
-        return reply.status(200).send(data)
+    getAll: (req, res, next) => {
+        var sql = "SELECT * FROM stringing ORDER BY date ASC"
+        var params = []
+        db.all( sql , params , (err, rows) => {
+            if (err) {
+              res.status(400).json({"error":err.message});
+              return;
+            }
+            res.json({
+                rows
+            })
+        });
     },
 
-    getOne: async( request, reply ) => {
-        const data = await model.getById( request.params.id );
-        if ( data != null && data.length > 0 ) {
-            return reply.status(200).send(data[0]);
-        } else {
-            return reply.status(500).send({ error: "Data not found"});
-        }
+
+    getOne: (req, res, next) => {
+        var sql = "SELECT * FROM stringing WHERE id = ?"
+        var params = [req.params.id]
+        db.get(sql, params, (err, row) => {
+            if (err) {
+              res.status(400).json({"error":err.message});
+              return;
+            }
+            res.json({
+                row
+            })
+          });
     },
 
-    post: async( request , reply ) => {
+    post:  (request, res, next) => {
         // Create a reguster row
-        const entry = {
+        const data = {
             raquet: request.body.raquet,
             date: request.body.date,
-            string: request.body.string,
+            strings: request.body.strings,
             weight: request.body.weight,
             place: request.body.place,
             
         }
 
-        // Save entry in the database
-        const res = await model.post( entry )
-
-        if ( res ) {
-            return reply.status(200).send(true);
-        } else {
-            return reply.status(500).send({ error: "Error"});
-        }
+        var sql = 'INSERT INTO stringing ( raquet,date,strings,weight,place ) \
+                   VALUES ( ? , ? , ? , ? , ? ) '
+        var params = Object.values( data )
+        db.run( sql , params, function (err, result) {
+            if (err){
+                res.status(400).json({"error": err.message})
+                return;
+            }
+            res.json({
+                "message": "success",
+                "data": data,
+                "id" : this.lastID
+            })
+        });
 
     }, // fine moetodo post
 
-    delete: async( request , reply ) => {
-        const res = await model.delete( request.params.id );
-        if ( res ) {
-            return reply.status(200).send(true);
-        } else {
-            return reply.status(500).send({ error: "Data not found"});
-        }
+    delete: (req, res, next) => {
+        db.run(
+            'DELETE FROM stringing WHERE id = ?',
+            req.params.id,
+            function (err, result) {
+                if (err){
+                    res.status(400).json({"error": res.message})
+                    return;
+                }
+                res.json({"message":"deleted", changes: this.changes})
+        });
     },  // fine delete
 
-    update: async( request , reply ) => {
+    update: async( request , res, next ) => {
 
-        const entry = {
+        const data = {
             raquet: request.body.raquet,
             date: request.body.date,
-            string: request.body.string,
+            strings: request.body.strings,
             weight: request.body.weight,
             place: request.body.place, 
         }
 
-        const id = request.params.id 
+        var params = Object.values( data )
 
-        console.log( id )
-        console.log( entry )
-
-        const res = await model.update( entry , id );
-
-        if ( res ) {
-            return reply.status(200).send(true);
-        } else {
-            return reply.status(500).send({ error: "Error"});
-        }
+        db.run(
+            `UPDATE stringing SET
+               raquet = ?, 
+               date = ?, 
+               strings = ?,
+               weight = ?,
+               place = ?
+            WHERE id = ?`,
+            [ ...params , request.params.id ],
+            function ( err ,  result) {
+                if (err){
+                    res.status(400).json({"error": res.message})
+                    console.log( err )
+                    return;
+                }
+                res.json({
+                    message: "success",
+                    data: data,
+                    changes: this.changes
+                })
+        });
     },  // fine update
 
 } // fine classe con metodi

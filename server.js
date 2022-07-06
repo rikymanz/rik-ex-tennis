@@ -8,11 +8,11 @@ app.use(cors())
 
 
 const registerRoutes = require('./routes/registerRoutes')
-//const stringingRoutes = require('./routes/stringingRoutes')
+const stringingRoutes = require('./routes/stringingRoutes')
 
 
 app.use('/register', registerRoutes )
-//app.use('/stringing', stringingRoutes )
+app.use('/stringing', stringingRoutes )
 
 // risposta del server http://localhost:3001
 app.listen( 3001, () => console.log('server started on 3001'))
