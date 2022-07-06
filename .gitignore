@@ -28,3 +28,4 @@ benchmarks/graphs
 
 # File di database
 db.sqlite
+prod.sqlite

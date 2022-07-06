@@ -1,5 +1,5 @@
 CREATE TABLE stringing(
-    id integer not null primary key auto_increment,
+    id integer not null primary key autoincrement,
     raquet integer not null,
     date datetime not null,
     strings varchar(100) not null,
