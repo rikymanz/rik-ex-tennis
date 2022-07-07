@@ -2,7 +2,6 @@
 const { makeRandomString , dateNowISO } = require('./../helpers/generalHelper')
 
 const db = require("./../database/database.js")
-const crypto = require("crypto"); 
 
 
 
@@ -41,7 +40,7 @@ const Controller = {
         // Create a reguster row
         const data = {
             username: request.body.username,
-            password: crypto.createHash('sha256').update( request.body.password ).digest('hex')
+            password: request.body.password,
         }
 
         var sql = 'SELECT * FROM dude WHERE username = ? AND password = ?'
