@@ -1,5 +1,5 @@
 GET http://localhost:3001/register/
-Token: 5OHPXGHNR33LBALF
+Token: YD5MT9A1GDRL046U
 ###
 
 GET http://localhost:3001/register/21
