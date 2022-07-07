@@ -1,8 +1,10 @@
 GET http://localhost:3001/stringing/
+Token: 5OHPXGHNR33LBALF
 
 ###
 
-GET http://localhost:3001/stringing/7
+GET http://localhost:3001/stringing/6
+Token:YD5MT9A1GDRL046U
 
 ###
 

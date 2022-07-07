@@ -1,22 +1,23 @@
 const express = require('express')
 const router = express.Router()
 const Controller = require('../controllers/registerController')
+const { authenticateToken } = require('./../helpers/authHelper')
 
 
 http://localhost:3001/register/
-router.get( '/', Controller.getAll )
+router.get( '/', authenticateToken , Controller.getAll )
 
 http://localhost:3001/register/12
-router.get( '/:id', Controller.getOne )
+router.get( '/:id', authenticateToken , Controller.getOne )
 
 http://localhost:3001/register/
-router.post( '/', Controller.post )
+router.post( '/', authenticateToken , Controller.post )
 
 http://localhost:3001/register/12
-router.delete( '/:id', Controller.delete )
+router.delete( '/:id', authenticateToken , Controller.delete )
 
 http://localhost:3001/register/12
-router.patch('/:id', Controller.update ) 
+router.patch('/:id', authenticateToken , Controller.update ) 
 
 
 module.exports = router

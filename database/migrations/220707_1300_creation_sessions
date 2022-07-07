@@ -1,0 +1,6 @@
+create table sessions(
+    id integer not null PRIMARY key AUTOINCREMENT,
+    user_id integer not null,
+    key varchar(16) not null,
+    timestamp datetime
+)

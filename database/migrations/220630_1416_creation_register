@@ -1,4 +1,3 @@
--- SQLite
 CREATE TABLE register(
     id integer not null primary key autoincrement,
     raquet integer not null,

@@ -1,0 +1,6 @@
+create table dude(
+    id integer not null PRIMARY key AUTOINCREMENT,
+    username varchar(100) not null,
+    password varchar(64) not null,
+    auth integer default 0
+)
