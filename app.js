@@ -20,7 +20,7 @@ app.use('/users', usersRoutes )
 
 
 // risposta del server http://localhost:3001
-app.listen( 3001, () => console.log('server started on 3001'))
+app.listen( 3000, () => console.log('server started on 3000'))
 
 app.use('/', (req,res) => {
   res.send('TENNIS API')
