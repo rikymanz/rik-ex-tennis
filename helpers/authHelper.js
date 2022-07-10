@@ -24,7 +24,7 @@ module.exports = {
             // il token esiste, bisogna cotrollare che sia l'ultimo
             const user = row.user_id
 
-            var sql = "SELECT * FROM sessions WHERE user_id = ? ORDER BY timestamp DESC"
+            var sql = "SELECT * FROM sessions WHERE user_id = ? ORDER BY id DESC"
             var params = [ user ]
             db.get(sql, params, ( err, row ) => {
 
