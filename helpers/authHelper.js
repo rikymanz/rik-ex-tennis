@@ -24,16 +24,12 @@ module.exports = {
             // il token esiste, bisogna cotrollare che sia l'ultimo
             const user = row.user_id
 
-            var sql = "SELECT * FROM sessions WHERE user_id = ? ORDER BY id DESC"
-            var params = [ user ]
+            var sql = "SELECT * FROM sessions WHERE user_id = ? AND key = ?"
+            var params = [ user , token ]
             db.get(sql, params, ( err, row ) => {
 
                 if (err) {
                     return res.sendStatus(400).json({"error":err.message})
-                }
-                // se il codice non è l'ultimo
-                if ( row.key != token ) {
-                    return res.sendStatus(403)
                 }
 
                 // se il token è scaduto. Passato un giorno dal login

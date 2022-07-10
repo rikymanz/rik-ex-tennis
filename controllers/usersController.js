@@ -38,7 +38,7 @@ const Controller = {
     login:  (request, res, next) => {
         // Create a reguster row
         const data = {
-            username: request.body.username,
+            username: request.body.username.toLowerCase(),
             password: crypto.createHash('sha256').update(request.body.password).digest('hex'),
         }
 
