@@ -5,7 +5,7 @@ const db = require("./../database/database.js")
 const Controller = {
 
     getAll: (req, res, next) => {
-        var sql = "SELECT * FROM register ORDER BY date ASC"
+        var sql = "SELECT * FROM register ORDER BY date DESC"
         var params = []
         db.all( sql , params , (err, rows) => {
             if (err) {

@@ -6,9 +6,10 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-//const input = 'pwd'
+//const input = 'Ciao'
 //const crypto = require("crypto"); 
 //const hash = crypto.createHash('sha256').update(input).digest('hex');
+
 
 const registerRoutes = require('./routes/registerRoutes')
 const stringingRoutes = require('./routes/stringingRoutes')
@@ -19,7 +20,7 @@ app.use('/stringing', stringingRoutes )
 app.use('/users', usersRoutes )
 
 
-// risposta del server http://localhost:3001
+// risposta del server http://localhost:3000
 app.listen( 3000, () => console.log('server started on 3000'))
 
 app.use('/', (req,res) => {
