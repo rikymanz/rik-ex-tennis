@@ -26,4 +26,4 @@ coverage
 
 # Benchmarking
 benchmarks/graphs
-prod.sql
+1.sqlite
